@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pingüi Games | Portal Oficial</title>
+    <title>Pingüi Games | Por Fabricio Pinaya</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* =========================================================
@@ -122,47 +122,14 @@
         .game-card-container.maze:hover .play-box { box-shadow: 0 30px 70px rgba(255, 212, 71, 0.35); border-color: #ffd447; }
         
         /* Contenedor del modal adaptable sin cortes */
-        .modal-dialog-game {
-            max-width: 1100px;
-            width: 94vw;
-            margin: 1.5vh auto;
-            transition: all 0.25s ease;
-        }
-        .modal-content-game {
-            height: 88vh;
-            display: flex;
-            flex-direction: column;
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .modal-game-iframe {
-            width: 100%;
-            flex: 1;
-            height: 100%;
-            border: 0;
-            background: #000;
-            display: block;
-            overflow: hidden;
-        }
+        .modal-dialog-game { max-width: 1100px; width: 94vw; margin: 1.5vh auto; transition: all 0.25s ease; }
+        .modal-content-game { height: 88vh; display: flex; flex-direction: column; background: #000; border-radius: 16px; overflow: hidden; }
+        .modal-game-iframe { width: 100%; flex: 1; height: 100%; border: 0; background: #000; display: block; overflow: hidden; }
 
-        /* Modo Pantalla Completa (se activa/desactiva con el botón) */
-        .modal-dialog-game.pantalla-completa {
-            max-width: 100vw !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            margin: 0 !important;
-        }
-        .modal-dialog-game.pantalla-completa .modal-content-game {
-            height: 100vh !important;
-            border-radius: 0 !important;
-            border: none !important;
-        }
-        .modal-content-game:fullscreen {
-            width: 100vw !important;
-            height: 100vh !important;
-            border-radius: 0 !important;
-        }
+        /* Modo Pantalla Completa */
+        .modal-dialog-game.pantalla-completa { max-width: 100vw !important; width: 100vw !important; height: 100vh !important; margin: 0 !important; }
+        .modal-dialog-game.pantalla-completa .modal-content-game { height: 100vh !important; border-radius: 0 !important; border: none !important; }
+        .modal-content-game:fullscreen { width: 100vw !important; height: 100vh !important; border-radius: 0 !important; }
 
         footer { background: #021426; color: #9cc5d8; border-top: 3px solid #0b5277; }
         footer strong { color: white; }
@@ -175,6 +142,7 @@
             .hud-item { min-width: 115px; padding: 9px; }
             .character-image { max-height: 400px; }
             .modal-content-game { height: 78vh; }
+            .navbar-brand-name { display: none !important; }
         }
     </style>
 </head>
@@ -186,10 +154,15 @@
         <span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span>
     </div>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR (CON TU NOMBRE EN GRANDE) -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#inicio">🐧 PINGÜI GAMES</a>
+            <a class="navbar-brand d-flex align-items-center" href="#inicio">
+                <span>🐧 PINGÜI GAMES</span>
+                <span class="ms-3 fs-6 text-info fw-bold border-start border-info ps-3 navbar-brand-name" style="letter-spacing: 0;">
+                    Por Fabricio Rene Pinaya Peñaloza
+                </span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -206,7 +179,7 @@
         </div>
     </nav>
 
-    <!-- HERO / INICIO -->
+    <!-- HERO / INICIO (CON TU NOMBRE DESTACADO) -->
     <header id="inicio" class="hero-section text-center">
         <div class="aurora"></div>
         <div class="container hero-content">
@@ -214,7 +187,11 @@
             
             <h1 class="hero-title">🐧 <span class="blue">PINGÜI</span><br><span class="red">GAMES</span></h1>
             
-            <p class="hero-subtitle mt-3">🎅 Dos desafíos extremos en el hielo esta Navidad</p>
+            <!-- TU NOMBRE DESTACADO EN EL HERO -->
+            <h3 class="text-info fw-bold mt-3 mb-4" style="text-shadow: 0 4px 15px rgba(0,0,0,0.8);">
+                Desarrollado por Fabricio Rene Pinaya Peñaloza
+            </h3>
+            
             <p class="hero-description">
                 Acompaña a Pingüi en sus dos aventuras por el Polo Norte: corre a toda velocidad para llegar al banquete de Nochebuena o adéntrate en el laberinto congelado para recuperar los 36 peces dorados sin ser atrapado.
             </p>
@@ -244,7 +221,6 @@
                 <p class="text-muted mt-3">Cada juego presenta una misión única para salvar la Navidad de Pingüi.</p>
             </div>
             <div class="row g-5">
-                <!-- Historia Juego 1: Pingüi Run -->
                 <div class="col-lg-6">
                     <div class="ice-card">
                         <div class="card-top"></div>
@@ -253,7 +229,7 @@
                                 <div class="card-icon mb-0">🏃</div>
                                 <div>
                                     <span class="badge bg-info text-dark mb-1">Juego 1 · Endless Runner</span>
-                                    <h3 class="fw-bold mb-0">Pingüi: Carrera en el Polo Norte</h3>
+                                    <h3 class="fw-bold mb-0">Pingüi Run</h3>
                                 </div>
                             </div>
                             <p>Es Nochebuena y todo el Polo Norte se prepara para celebrar, pero Pingüi se ha quedado dormido dentro de su iglú.</p>
@@ -266,7 +242,6 @@
                     </div>
                 </div>
 
-                <!-- Historia Juego 2: Laberinto del Polo Norte -->
                 <div class="col-lg-6">
                     <div class="ice-card">
                         <div class="card-top pacman"></div>
@@ -274,8 +249,8 @@
                             <div class="d-flex align-items-center gap-3 mb-4">
                                 <div class="card-icon pacman mb-0">🐟</div>
                                 <div>
-                                    <span class="badge bg-warning text-dark mb-1">Juego 2 · Arcade 3D (Pac-Man)</span>
-                                    <h3 class="fw-bold mb-0">Pingüi: Laberinto del Polo Norte</h3>
+                                    <span class="badge bg-warning text-dark mb-1">Juego 2 · Arcade 3D</span>
+                                    <h3 class="fw-bold mb-0">Laberinto del Polo Norte</h3>
                                 </div>
                             </div>
                             <p>Una noche, una misteriosa tormenta helada dejó encerrado el camino de regreso a casa. Los <strong>36 peces dorados</strong> que permiten abrir la puerta de hielo quedaron repartidos por un enorme laberinto de 11 × 9 celdas.</p>
@@ -344,11 +319,10 @@
                 <p class="text-muted mt-3">Domina las reglas de cada modo de juego antes de empezar.</p>
             </div>
             
-            <!-- BLOQUE 1: PINGÜI RUN -->
             <div class="mb-5 pb-5 border-bottom border-info">
                 <div class="d-flex align-items-center gap-2 mb-4">
                     <span class="badge bg-info text-dark fs-6 px-3 py-2 rounded-pill">Modo 1</span>
-                    <h3 class="fw-bold mb-0">Pingüi Run (Carrera en el Polo Norte)</h3>
+                    <h3 class="fw-bold mb-0">Pingüi Run</h3>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4">
@@ -386,11 +360,10 @@
                 </div>
             </div>
 
-            <!-- BLOQUE 2: LABERINTO DEL POLO NORTE (PACMAN) -->
             <div>
                 <div class="d-flex align-items-center gap-2 mb-4">
                     <span class="badge bg-warning text-dark fs-6 px-3 py-2 rounded-pill">Modo 2</span>
-                    <h3 class="fw-bold mb-0">Pingüi: Laberinto del Polo Norte (Pingu Pacman)</h3>
+                    <h3 class="fw-bold mb-0">Laberinto del Polo Norte</h3>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4">
@@ -404,7 +377,7 @@
                                 <li><span class="badge bg-dark me-1">R</span> Reiniciar partida en cualquier momento.</li>
                                 <li><span class="badge bg-dark me-1">V</span> Cambiar cámara: inclinada (70°) o cenital (90°).</li>
                                 <li><span class="badge bg-dark me-1">L</span> / <span class="badge bg-dark me-1">N</span> Ver rayos de visión, rutas y NavMesh.</li>
-                                <li><span class="badge bg-dark me-1">M</span> Música sí/no · <span class="badge bg-dark me-1">F1</span> Info técnica · <span class="badge bg-dark me-1">H</span> Ayuda.</li>
+                                <li><span class="badge bg-dark me-1">M</span> Música sí/no · <span class="badge bg-dark me-1">F1</span> Info técnica.</li>
                             </ul>
                         </div></div>
                     </div>
@@ -412,8 +385,8 @@
                         <div class="ice-card"><div class="card-top pacman"></div><div class="p-4">
                             <h5 class="fw-bold mb-3">🏆 Reglas del Laberinto</h5>
                             <ul class="stat-list pacman">
-                                <li>🐟 <strong>36 peces dorados:</strong> cada uno suma <strong>10 puntos</strong> (360 máx) y desaparece con un destello.</li>
-                                <li>🔒 <strong>Puerta de salida (F1):</strong> permanece cerrada con luces rojas hasta recoger el último pez; luego se hunde con luces verdes.</li>
+                                <li>🐟 <strong>36 peces dorados:</strong> cada uno suma <strong>10 puntos</strong> (360 máx) y desaparece.</li>
+                                <li>🔒 <strong>Puerta de salida (F1):</strong> cerrada con luces rojas hasta recoger el último pez.</li>
                                 <li>🎉 <strong>Victoria:</strong> recoge los 36 peces y cruza la puerta abierta.</li>
                                 <li>💀 <strong>Sin vidas:</strong> si un enemigo te toca, pierdes al instante.</li>
                             </ul>
@@ -423,25 +396,23 @@
                         <div class="ice-card"><div class="card-top pacman"></div><div class="p-4">
                             <h5 class="fw-bold mb-3">⛄ Enemigos con IA</h5>
                             <ul class="stat-list pacman">
-                                <li>🔴 <strong>Muñeco Rojo (E1):</strong> patrulla la ruta E6 → B6 → B2 → E2.</li>
-                                <li>🟣 <strong>Muñeco Morado (E2):</strong> patrulla la ruta G6 → J6 → J2 → G2.</li>
-                                <li>🧭 <strong>Pathfinding (2,5 u/s):</strong> esquivan muros automáticamente con <em>NavMeshAgent</em>.</li>
-                                <li>👁️ <strong>Raycasting (8 u):</strong> lanzan un rayo desde los ojos; si te ven sin paredes en medio, sus ojos brillan y te persiguen a <strong>3,5 u/s</strong>.</li>
+                                <li>🔴 <strong>Muñeco Rojo (E1):</strong> ruta E6 → B6 → B2 → E2.</li>
+                                <li>🟣 <strong>Muñeco Morado (E2):</strong> ruta G6 → J6 → J2 → G2.</li>
+                                <li>🧭 <strong>Pathfinding (2,5 u/s):</strong> esquivan muros automáticamente con NavMeshAgent.</li>
+                                <li>👁️ <strong>Raycasting (8 u):</strong> si te ven, sus ojos brillan y te persiguen a <strong>3,5 u/s</strong>.</li>
                             </ul>
                         </div></div>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- ESTADÍSTICAS DE AMBOS JUEGOS -->
+    <!-- ESTADÍSTICAS -->
     <section id="datos" class="py-5 bg-white">
         <div class="container py-5">
             <div class="text-center mb-5">
                 <h2 class="section-title">📊 Números del Multiverso Pingüi</h2>
-                <p class="text-muted mt-3">Datos clave de la Carrera y del Laberinto del Polo Norte.</p>
             </div>
             <div class="row g-4 justify-content-center">
                 <div class="col-6 col-md-3">
@@ -472,7 +443,7 @@
         </div>
     </section>
 
-    <!-- JUGAR (SELECCIÓN DE MODALES) -->
+    <!-- JUGAR -->
     <section id="jugar" class="play-section py-5">
         <div class="container py-5 text-center">
             <div class="game-badge mb-4">🎄 ¡JUEGA DIRECTAMENTE EN EL NAVEGADOR!</div>
@@ -480,33 +451,23 @@
             <p class="text-light opacity-75 mb-5">Haz clic en cualquiera de los juegos para abrir la consola interactiva sin salir de la página.</p>
 
             <div class="row justify-content-center g-4">
-                <!-- TARJETA JUEGO 1: PINGÜI RUN -->
                 <div class="col-md-5 game-card-container runner" data-bs-toggle="modal" data-bs-target="#modalPinguiRun">
                     <div class="play-box h-100 p-5">
                         <div style="font-size: 4.5rem;">🐧❄️</div>
                         <span class="badge bg-info text-dark mt-2">Práctica 1 · Endless Runner</span>
                         <h3 class="fw-bold mt-2 text-white">Pingüi Run</h3>
-                        <p class="text-light opacity-75 mt-3">
-                            El hielo no espera. Salta, agáchate y esquiva obstáculos a toda velocidad para llegar al banquete de la abuela.
-                        </p>
-                        <button class="btn btn-play btn-lg rounded-pill fw-bold px-4 py-3 mt-3 w-100">
-                            ▶ JUGAR PINGÜI RUN
-                        </button>
+                        <p class="text-light opacity-75 mt-3">El hielo no espera. Salta, agáchate y esquiva obstáculos a toda velocidad para llegar al banquete.</p>
+                        <button class="btn btn-play btn-lg rounded-pill fw-bold px-4 py-3 mt-3 w-100">▶ JUGAR PINGÜI RUN</button>
                     </div>
                 </div>
 
-                <!-- TARJETA JUEGO 2: LABERINTO DEL POLO NORTE -->
                 <div class="col-md-5 game-card-container maze" data-bs-toggle="modal" data-bs-target="#modalPinguPacman">
                     <div class="play-box h-100 p-5">
                         <div style="font-size: 4.5rem;">🐟⛄</div>
                         <span class="badge bg-warning text-dark mt-2">Práctica 2 · Arcade 3D</span>
                         <h3 class="fw-bold mt-2 text-warning">Laberinto del Polo Norte</h3>
-                        <p class="text-light opacity-75 mt-3">
-                            Recoge los 36 peces dorados, abre la puerta de hielo en F1 y escapa de los muñecos de nieve con Raycasting.
-                        </p>
-                        <button class="btn btn-gold btn-lg rounded-pill fw-bold px-4 py-3 mt-3 w-100">
-                            ▶ JUGAR LABERINTO
-                        </button>
+                        <p class="text-light opacity-75 mt-3">Recoge los 36 peces dorados, abre la puerta de hielo en F1 y escapa de los muñecos de nieve con Raycasting.</p>
+                        <button class="btn btn-gold btn-lg rounded-pill fw-bold px-4 py-3 mt-3 w-100">▶ JUGAR LABERINTO</button>
                     </div>
                 </div>
             </div>
@@ -515,7 +476,7 @@
         </div>
     </section>
 
-    <!-- PORTAFOLIO Y FOOTER -->
+    <!-- PORTAFOLIO Y FOOTER (SOLO TU NOMBRE) -->
     <section class="py-5 ice-section text-center">
         <div class="container py-4">
             <div style="font-size: 3rem;">🎮 🎄 🐧</div>
@@ -531,24 +492,18 @@
         <div class="container">
             <div style="font-size: 2.2rem;">🐧 ❄️ 🎄</div>
             <p class="mb-1"><strong>PINGÜI GAMES · Carrera & Laberinto del Polo Norte</strong></p>
-            <p class="small mb-0">Desarrollado por el equipo <strong>Rescate del Pingu</strong>: Fabricio Rene Pinaya Peñaloza & Jhoel Alejandro Mauricio Flores Vargas.</p>
+            <p class="small mb-0">Desarrollado exclusivamente por <strong>Fabricio Rene Pinaya Peñaloza</strong>.</p>
         </div>
     </footer>
 
-    <!-- =========================================================
-         MODALES DE LOS JUEGOS (CON BOTÓN PANTALLA COMPLETA)
-    ========================================================== -->
-
-    <!-- Modal Juego 1: Pingüi Run -->
+    <!-- MODALES DE LOS JUEGOS -->
     <div class="modal fade" id="modalPinguiRun" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-game" id="dialogPinguiRun">
             <div class="modal-content modal-content-game" id="contentPinguiRun" style="border: 2px solid #65dcff;">
                 <div class="modal-header border-0 py-2 px-3 d-flex justify-content-between align-items-center" style="background: #021426;">
                     <h6 class="modal-title text-info fw-bold mb-0">🐧 Pingüi Run (Controles: ⬆️ ⬇️)</h6>
                     <div class="d-flex align-items-center gap-2">
-                        <button type="button" class="btn btn-sm btn-outline-info fw-bold rounded-pill px-3" onclick="alternarPantallaCompleta('dialogPinguiRun', 'contentPinguiRun', this, 'iframePinguiRun')">
-                            ⛶ Pantalla Completa
-                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-info fw-bold rounded-pill px-3" onclick="alternarPantallaCompleta('dialogPinguiRun', 'contentPinguiRun', this, 'iframePinguiRun')">⛶ Pantalla Completa</button>
                         <button type="button" class="btn-close btn-close-white m-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                 </div>
@@ -559,16 +514,13 @@
         </div>
     </div>
 
-    <!-- Modal Juego 2: Laberinto del Polo Norte -->
     <div class="modal fade" id="modalPinguPacman" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-game" id="dialogPinguPacman">
             <div class="modal-content modal-content-game" id="contentPinguPacman" style="border: 2px solid #ffd447;">
                 <div class="modal-header border-0 py-2 px-3 d-flex justify-content-between align-items-center" style="background: #021426;">
                     <h6 class="modal-title text-warning fw-bold mb-0">🐟 Laberinto del Polo Norte (Flechas | R: Reiniciar | V: Vista)</h6>
                     <div class="d-flex align-items-center gap-2">
-                        <button type="button" class="btn btn-sm btn-outline-warning fw-bold rounded-pill px-3" onclick="alternarPantallaCompleta('dialogPinguPacman', 'contentPinguPacman', this, 'iframePinguPacman')">
-                            ⛶ Pantalla Completa
-                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-warning fw-bold rounded-pill px-3" onclick="alternarPantallaCompleta('dialogPinguPacman', 'contentPinguPacman', this, 'iframePinguPacman')">⛶ Pantalla Completa</button>
                         <button type="button" class="btn-close btn-close-white m-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                 </div>
@@ -586,70 +538,37 @@
         window.addEventListener("load", function () { setTimeout(function () { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); }, 50); });
         window.addEventListener("pageshow", function (event) { if (event.persisted) { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); } });
 
-        // Ajusta automáticamente el interior del iframe de Unity para que nunca salga cortado ni con barras
         function ajustarCanvasUnity(iframeEl) {
             try {
                 const doc = iframeEl.contentDocument || iframeEl.contentWindow.document;
                 if (!doc) return;
                 const style = doc.createElement('style');
                 style.innerHTML = `
-                    html, body {
-                        margin: 0 !important;
-                        padding: 0 !important;
-                        width: 100% !important;
-                        height: 100% !important;
-                        overflow: hidden !important;
-                        background: #000 !important;
-                    }
-                    #unity-container {
-                        position: fixed !important;
-                        inset: 0 !important;
-                        left: 0 !important;
-                        top: 0 !important;
-                        transform: none !important;
-                        width: 100% !important;
-                        height: 100% !important;
-                        display: flex !important;
-                        align-items: center !important;
-                        justify-content: center !important;
-                    }
-                    #unity-canvas {
-                        width: 100% !important;
-                        height: 100% !important;
-                    }
-                    #unity-footer {
-                        display: none !important;
-                    }
+                    html, body { margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important; overflow: hidden !important; background: #000 !important; }
+                    #unity-container { position: fixed !important; inset: 0 !important; left: 0 !important; top: 0 !important; transform: none !important; width: 100% !important; height: 100% !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+                    #unity-canvas { width: 100% !important; height: 100% !important; }
+                    #unity-footer { display: none !important; }
                 `;
                 doc.head.appendChild(style);
-            } catch (e) {
-                console.warn("No se pudo inyectar el auto-ajuste:", e);
-            }
+            } catch (e) { console.warn("No se pudo inyectar el auto-ajuste:", e); }
         }
 
-        // Botón interruptor: Activa y desactiva la pantalla completa
         function alternarPantallaCompleta(idDialog, idContent, btnEl, idIframe) {
             const dialogEl = document.getElementById(idDialog);
             const contentEl = document.getElementById(idContent);
             const iframeEl = document.getElementById(idIframe);
-
             if (!document.fullscreenElement && !dialogEl.classList.contains('pantalla-completa')) {
                 dialogEl.classList.add('pantalla-completa');
                 btnEl.innerHTML = '🗗 Tamaño Normal';
-                if (contentEl.requestFullscreen) {
-                    contentEl.requestFullscreen().catch(() => {});
-                }
+                if (contentEl.requestFullscreen) { contentEl.requestFullscreen().catch(() => {}); }
             } else {
                 dialogEl.classList.remove('pantalla-completa');
                 btnEl.innerHTML = '⛶ Pantalla Completa';
-                if (document.fullscreenElement && document.exitFullscreen) {
-                    document.exitFullscreen().catch(() => {});
-                }
+                if (document.fullscreenElement && document.exitFullscreen) { document.exitFullscreen().catch(() => {}); }
             }
             setTimeout(() => iframeEl.focus(), 100);
         }
 
-        // Sincroniza el texto del botón si el usuario sale con la tecla ESC
         document.addEventListener('fullscreenchange', () => {
             if (!document.fullscreenElement) {
                 document.querySelectorAll('.modal-dialog-game').forEach(d => d.classList.remove('pantalla-completa'));
@@ -661,28 +580,22 @@
             const modalEl = document.getElementById(idModal);
             const iframeEl = document.getElementById(idIframe);
             const dialogEl = document.getElementById(idDialog);
-
             iframeEl.addEventListener('load', function () {
                 if (iframeEl.src && iframeEl.src !== window.location.href) {
                     ajustarCanvasUnity(iframeEl);
                     iframeEl.focus();
                 }
             });
-            
             modalEl.addEventListener('shown.bs.modal', function () {
                 iframeEl.src = iframeEl.getAttribute('data-src');
                 iframeEl.focus();
             });
-            
             modalEl.addEventListener('hidden.bs.modal', function () {
                 iframeEl.src = "";
                 dialogEl.classList.remove('pantalla-completa');
-                if (document.fullscreenElement && document.exitFullscreen) {
-                    document.exitFullscreen().catch(() => {});
-                }
+                if (document.fullscreenElement && document.exitFullscreen) { document.exitFullscreen().catch(() => {}); }
             });
         }
-
         configurarModalJuego('modalPinguiRun', 'iframePinguiRun', 'dialogPinguiRun');
         configurarModalJuego('modalPinguPacman', 'iframePinguPacman', 'dialogPinguPacman');
     </script>
