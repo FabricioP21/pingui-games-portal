@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pingüi Games | Portal Oficial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* =========================================================
+           CONFIGURACIÓN GENERAL Y NIEVE
+        ========================================================= */
+        html { scroll-behavior: smooth; scroll-padding-top: 90px; overflow-anchor: none; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eaf7ff; color: #102a43; overflow-x: hidden; }
+        
+        .snow { position: fixed; top: -20px; width: 7px; height: 7px; background: white; border-radius: 50%; opacity: 0.85; pointer-events: none; z-index: 9998; animation: snowfall linear infinite; }
+        .snow:nth-child(1) { left: 3%; animation-duration: 8s; }
+        .snow:nth-child(2) { left: 12%; animation-duration: 12s; width: 5px; height: 5px; }
+        .snow:nth-child(3) { left: 22%; animation-duration: 9s; }
+        .snow:nth-child(4) { left: 32%; animation-duration: 14s; width: 4px; height: 4px; }
+        .snow:nth-child(5) { left: 42%; animation-duration: 10s; }
+        .snow:nth-child(6) { left: 52%; animation-duration: 13s; width: 6px; height: 6px; }
+        .snow:nth-child(7) { left: 62%; animation-duration: 9s; }
+        .snow:nth-child(8) { left: 72%; animation-duration: 11s; width: 5px; height: 5px; }
+        .snow:nth-child(9) { left: 82%; animation-duration: 15s; }
+        .snow:nth-child(10) { left: 92%; animation-duration: 10s; width: 4px; height: 4px; }
+        @keyframes snowfall {
+            0% { transform: translateY(-20px) translateX(0); }
+            50% { transform: translateY(50vh) translateX(35px); }
+            100% { transform: translateY(110vh) translateX(-25px); }
+        }
+
+        /* =========================================================
+           NAVBAR Y LUCES NAVIDEÑAS
+        ========================================================= */
+        .navbar-custom { background: linear-gradient(90deg, #03172f, #08294c, #03172f); backdrop-filter: blur(12px); box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3); border-bottom: 2px solid rgba(255, 255, 255, 0.08); }
+        .navbar-brand { font-size: 1.4rem; font-weight: 900; letter-spacing: 1px; color: white !important; text-shadow: 0 0 10px rgba(79, 216, 255, 0.5); }
+        .nav-link { color: #d9f6ff !important; font-weight: 600; transition: 0.3s; position: relative; }
+        .nav-link:hover { color: #70e4ff !important; transform: translateY(-2px); }
+        .nav-link::after { content: ""; position: absolute; left: 50%; bottom: 2px; width: 0; height: 2px; background: #68ddff; transform: translateX(-50%); transition: 0.3s; }
+        .nav-link:hover::after { width: 65%; }
+
+        .christmas-lights { position: fixed; top: 68px; left: 0; width: 100%; height: 18px; z-index: 999; pointer-events: none; display: flex; justify-content: space-around; overflow: hidden; }
+        .light { width: 9px; height: 9px; border-radius: 50%; background: #ff4658; box-shadow: 0 0 12px #ff4658; animation: blink 1.5s infinite; }
+        .light:nth-child(2n) { background: #69ddff; box-shadow: 0 0 12px #69ddff; animation-delay: .3s; }
+        .light:nth-child(3n) { background: #ffd447; box-shadow: 0 0 12px #ffd447; animation-delay: .6s; }
+        @keyframes blink { 0%, 100% { opacity: .5; } 50% { opacity: 1; transform: scale(1.35); } }
+
+        /* =========================================================
+           HERO / INICIO
+        ========================================================= */
+        .hero-section { min-height: 900px; padding: 145px 0 120px; position: relative; overflow: hidden; color: white; background: linear-gradient(90deg, rgba(2, 17, 43, .95), rgba(4, 30, 61, .82), rgba(5, 35, 70, .55)), url("Presentacion.Juego.jpg"); background-size: cover; background-position: center; background-attachment: fixed; }
+        .hero-section::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 75% 30%, rgba(40, 255, 220, .22), transparent 30%), radial-gradient(circle at 25% 70%, rgba(50, 180, 255, .18), transparent 30%); pointer-events: none; }
+        .aurora { position: absolute; top: 80px; left: 50%; width: 700px; height: 250px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, rgba(56, 255, 206, .15), rgba(48, 224, 255, .3), rgba(150, 80, 255, .12), transparent); filter: blur(45px); border-radius: 50%; animation: auroraMove 7s ease-in-out infinite alternate; pointer-events: none; }
+        @keyframes auroraMove { from { transform: translateX(-55%) scaleX(.9); } to { transform: translateX(-45%) scaleX(1.2); } }
+        
+        .hero-content { position: relative; z-index: 5; }
+        .game-badge { display: inline-block; padding: 8px 20px; border-radius: 30px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(160, 240, 255, .6); color: #c8f7ff; font-weight: 800; letter-spacing: 2px; font-size: .8rem; box-shadow: 0 0 25px rgba(70, 220, 255, .25); }
+        .hero-title { font-size: clamp(3.5rem, 7vw, 6.5rem); font-weight: 1000; line-height: .9; margin-top: 25px; text-transform: uppercase; text-shadow: 0 5px 0 #071b36, 0 10px 30px rgba(0, 0, 0, .5); }
+        .hero-title .blue { color: #65ddff; }
+        .hero-title .red { color: #ff4b5c; }
+        .hero-subtitle { font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 800; color: #ffffff; text-shadow: 0 3px 10px rgba(0,0,0,.5); }
+        .hero-description { max-width: 720px; margin: 25px auto; color: #e3f9ff; font-size: 1.12rem; line-height: 1.8; }
+        
+        .btn-play { background: linear-gradient(135deg, #ff4658, #d90429); border: 2px solid #ff7885; color: white; box-shadow: 0 8px 25px rgba(255, 45, 70, .4), inset 0 1px rgba(255,255,255,.3); transition: .3s; }
+        .btn-play:hover { background: linear-gradient(135deg, #ff6170, #ef163b); color: white; transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(255, 45, 70, .5); }
+        .btn-gold { background: linear-gradient(135deg, #ffd447, #f59e0b); border: 2px solid #fde047; color: #041426; box-shadow: 0 8px 25px rgba(255, 212, 71, .35); transition: .3s; }
+        .btn-gold:hover { background: linear-gradient(135deg, #fde047, #fbbf24); color: #041426; transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(255, 212, 71, .5); }
+        .btn-ice { border: 2px solid #76e5ff; color: #baf4ff; background: rgba(0,0,0,.15); transition: .3s; }
+        .btn-ice:hover { background: #76e5ff; color: #062541; transform: translateY(-4px); }
+        
+        .game-hud { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 35px; }
+        .hud-item { background: rgba(2, 16, 35, .78); border: 1px solid rgba(141, 227, 255, .35); padding: 12px 20px; border-radius: 14px; min-width: 155px; box-shadow: 0 6px 20px rgba(0,0,0,.3); backdrop-filter: blur(8px); }
+        .hud-label { display: block; font-size: .7rem; color: #8cdcf4; text-transform: uppercase; letter-spacing: 1px; }
+        .hud-value { font-weight: 900; color: white; }
+
+        .hero-cover { max-width: 900px; margin: 55px auto 0; border-radius: 28px; overflow: hidden; border: 3px solid rgba(255,255,255,.25); box-shadow: 0 25px 80px rgba(0,0,0,.5), 0 0 45px rgba(60,210,255,.2); transform: perspective(1000px) rotateX(2deg); transition: .5s; }
+        .hero-cover:hover { transform: perspective(1000px) rotateX(0) scale(1.015); }
+        .hero-cover img { width: 100%; display: block; }
+        
+        /* =========================================================
+           SECCIONES Y TARJETAS
+        ========================================================= */
+        .ice-section { background: radial-gradient(circle at 10% 20%, rgba(95,218,255,.15), transparent 25%), #edf9ff; }
+        .section-title { font-weight: 900; color: #09294d; display: inline-block; position: relative; }
+        .section-title::after { content: ""; display: block; width: 65%; height: 4px; margin: 10px auto 0; background: linear-gradient(90deg, #48c7f5, #ffd447, #ff5365); border-radius: 20px; }
+        
+        .ice-card { border: 1px solid #c7eaf8; border-radius: 22px; background: rgba(255,255,255,.97); box-shadow: 0 12px 30px rgba(24,90,120,.12); overflow: hidden; transition: .35s; height: 100%; }
+        .ice-card:hover { transform: translateY(-8px); box-shadow: 0 20px 45px rgba(24,90,120,.2); border-color: #65dcff; }
+        .card-top { height: 7px; background: linear-gradient(90deg, #3bbce8, #9beaff, #ff5365); }
+        .card-top.pacman { background: linear-gradient(90deg, #ffd447, #f59e0b, #a855f7); }
+        .card-icon { width: 65px; height: 65px; display: flex; align-items: center; justify-content: center; background: #e3f7ff; border-radius: 18px; font-size: 2rem; margin-bottom: 20px; }
+        .card-icon.pacman { background: #fef3c7; }
+        
+        .character-image { width: 100%; max-height: 520px; object-fit: cover; object-position: center; border-radius: 28px; border: 4px solid white; box-shadow: 0 20px 50px rgba(20,80,120,.2), 0 0 0 1px #b8e8f8; transition: .4s; }
+        .character-image:hover { transform: scale(1.02); box-shadow: 0 25px 60px rgba(20,80,120,.3); }
+        
+        .stat-list { list-style: none; padding: 0; margin-bottom: 0; }
+        .stat-list li { padding: 12px 15px; margin-bottom: 8px; background: #f1fbff; border-left: 4px solid #58cef2; border-radius: 8px; transition: .25s; }
+        .stat-list li:hover { transform: translateX(5px); background: #e2f8ff; }
+        .stat-list.pacman li { background: #fffbeb; border-left: 4px solid #f59e0b; }
+        .stat-list.pacman li:hover { background: #fef3c7; }
+        
+        .key { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 44px; padding: 0 10px; margin: 4px; border-radius: 10px; background: #09294d; color: white; font-weight: bold; font-size: 0.9rem; box-shadow: 0 4px 0 #041426; }
+        .key.gold { background: #b45309; box-shadow: 0 4px 0 #78350f; }
+
+        .metric-card { padding: 28px 15px; text-align: center; border-radius: 20px; background: linear-gradient(145deg, #ffffff, #eaf9ff); border: 1px solid #c5eafa; box-shadow: 0 10px 25px rgba(0,0,0,.08); transition: .3s; height: 100%; }
+        .metric-card:hover { transform: translateY(-7px); box-shadow: 0 18px 35px rgba(0,0,0,.14); border-color: #65dcff; }
+        .metric-number { font-size: 2.6rem; font-weight: 900; color: #087ea4; }
+        .metric-number.gold { color: #d97706; }
+
+        /* =========================================================
+           SECCIÓN JUGAR Y MODALES CON PANTALLA COMPLETA
+        ========================================================= */
+        .play-section { position: relative; background: linear-gradient(135deg, #041a35, #0b4770, #06213f); color: white; overflow: hidden; }
+        .play-section::before { content: "🎄"; position: absolute; font-size: 18rem; opacity: .035; right: 5%; top: -50px; pointer-events: none; }
+        .play-section::after { content: "❄️"; position: absolute; font-size: 12rem; opacity: .035; left: 4%; bottom: -40px; pointer-events: none; }
+        .play-box { border-radius: 30px; background: rgba(255,255,255,.07); border: 2px solid rgba(255,255,255,.18); backdrop-filter: blur(12px); box-shadow: 0 25px 60px rgba(0,0,0,.3); position: relative; z-index: 2; transition: 0.4s; }
+        
+        .game-card-container { transition: 0.4s; cursor: pointer; }
+        .game-card-container:hover { transform: translateY(-10px); }
+        .game-card-container.runner:hover .play-box { box-shadow: 0 30px 70px rgba(101, 220, 255, 0.35); border-color: #65dcff; }
+        .game-card-container.maze:hover .play-box { box-shadow: 0 30px 70px rgba(255, 212, 71, 0.35); border-color: #ffd447; }
+        
+        /* Contenedor del modal adaptable sin cortes */
+        .modal-dialog-game {
+            max-width: 1100px;
+            width: 94vw;
+            margin: 1.5vh auto;
+            transition: all 0.25s ease;
+        }
+        .modal-content-game {
+            height: 88vh;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .modal-game-iframe {
+            width: 100%;
+            flex: 1;
+            height: 100%;
+            border: 0;
+            background: #000;
+            display: block;
+            overflow: hidden;
+        }
+
+        /* Modo Pantalla Completa (se activa/desactiva con el botón) */
+        .modal-dialog-game.pantalla-completa {
+            max-width: 100vw !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+        }
+        .modal-dialog-game.pantalla-completa .modal-content-game {
+            height: 100vh !important;
+            border-radius: 0 !important;
+            border: none !important;
+        }
+        .modal-content-game:fullscreen {
+            width: 100vw !important;
+            height: 100vh !important;
+            border-radius: 0 !important;
+        }
+
+        footer { background: #021426; color: #9cc5d8; border-top: 3px solid #0b5277; }
+        footer strong { color: white; }
+
+        @media (max-width: 768px) {
+            .hero-section { min-height: 850px; padding-top: 130px; background-attachment: scroll; }
+            .hero-title { font-size: 3.4rem; }
+            .hero-description { font-size: 1rem; }
+            .hero-cover { margin-top: 35px; border-radius: 18px; }
+            .hud-item { min-width: 115px; padding: 9px; }
+            .character-image { max-height: 400px; }
+            .modal-content-game { height: 78vh; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NIEVE Y LUCES -->
+    <div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
+    <div class="christmas-lights">
+        <span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#inicio">🐧 PINGÜI GAMES</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#historia">Historias</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#personaje">Pingüi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#mecanicas">Mecánicas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#datos">Estadísticas</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0"><a href="#jugar" class="btn btn-play rounded-pill fw-bold px-4">🎮 JUGAR</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO / INICIO -->
+    <header id="inicio" class="hero-section text-center">
+        <div class="aurora"></div>
+        <div class="container hero-content">
+            <span class="game-badge">🎄 ❄️ ENDLESS RUNNER & LABERINTO ARCADE 3D · POLO NORTE ❄️ 🎄</span>
+            
+            <h1 class="hero-title">🐧 <span class="blue">PINGÜI</span><br><span class="red">GAMES</span></h1>
+            
+            <p class="hero-subtitle mt-3">🎅 Dos desafíos extremos en el hielo esta Navidad</p>
+            <p class="hero-description">
+                Acompaña a Pingüi en sus dos aventuras por el Polo Norte: corre a toda velocidad para llegar al banquete de Nochebuena o adéntrate en el laberinto congelado para recuperar los 36 peces dorados sin ser atrapado.
+            </p>
+            
+            <div class="d-flex justify-content-center flex-wrap gap-3">
+                <a href="#jugar" class="btn btn-play btn-lg rounded-pill fw-bold px-5 py-3">🎮 ELEGIR JUEGO</a>
+                <a href="#historia" class="btn btn-ice btn-lg rounded-pill px-4 py-3">❄️ CONOCER MÁS</a>
+            </div>
+
+            <div class="game-hud">
+                <div class="hud-item"><span class="hud-label">Juegos</span><span class="hud-value">🎮 2 Mundos 3D</span></div>
+                <div class="hud-item"><span class="hud-label">Motor</span><span class="hud-value">⚡ Unity 6 WebGL</span></div>
+                <div class="hud-item"><span class="hud-label">IA & Física</span><span class="hud-value">🧭 NavMesh & Raycast</span></div>
+            </div>
+
+            <div class="hero-cover">
+                <img src="Presentacion.Juego.jpg" alt="Pingüi Games - Polo Norte">
+            </div>
+        </div>
+    </header>
+
+    <!-- HISTORIAS -->
+    <section id="historia" class="py-5 ice-section">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">🎄 Dos Aventuras en el Polo Norte</h2>
+                <p class="text-muted mt-3">Cada juego presenta una misión única para salvar la Navidad de Pingüi.</p>
+            </div>
+            <div class="row g-5">
+                <!-- Historia Juego 1: Pingüi Run -->
+                <div class="col-lg-6">
+                    <div class="ice-card">
+                        <div class="card-top"></div>
+                        <div class="p-4 p-md-5">
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="card-icon mb-0">🏃</div>
+                                <div>
+                                    <span class="badge bg-info text-dark mb-1">Juego 1 · Endless Runner</span>
+                                    <h3 class="fw-bold mb-0">Pingüi: Carrera en el Polo Norte</h3>
+                                </div>
+                            </div>
+                            <p>Es Nochebuena y todo el Polo Norte se prepara para celebrar, pero Pingüi se ha quedado dormido dentro de su iglú.</p>
+                            <p>Al despertar, descubre que la fiesta está a punto de comenzar. Su abuela, los regalos y el gran banquete de pescado lo esperan al otro lado de un peligroso camino congelado iluminado por la aurora boreal.</p>
+                            <ul class="stat-list mt-4">
+                                <li>🧊 Esquiva bloques de hielo, rocas, regalos y charranes árticos.</li>
+                                <li>🏆 Alcanza la meta de <strong>1000 puntos</strong> antes de quedarte sin vidas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Historia Juego 2: Laberinto del Polo Norte -->
+                <div class="col-lg-6">
+                    <div class="ice-card">
+                        <div class="card-top pacman"></div>
+                        <div class="p-4 p-md-5">
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="card-icon pacman mb-0">🐟</div>
+                                <div>
+                                    <span class="badge bg-warning text-dark mb-1">Juego 2 · Arcade 3D (Pac-Man)</span>
+                                    <h3 class="fw-bold mb-0">Pingüi: Laberinto del Polo Norte</h3>
+                                </div>
+                            </div>
+                            <p>Una noche, una misteriosa tormenta helada dejó encerrado el camino de regreso a casa. Los <strong>36 peces dorados</strong> que permiten abrir la puerta de hielo quedaron repartidos por un enorme laberinto de 11 × 9 celdas.</p>
+                            <p>Para regresar a su acogedor iglú al ritmo de <em>Jingle Bells</em>, Pingüi debe recorrer cada pasillo congelado, recuperar todos los peces y evitar a dos malvados muñecos de nieve que patrullan el lugar.</p>
+                            <ul class="stat-list pacman mt-4">
+                                <li>🔓 Reúne los 36 peces para abrir el candado de la puerta en la salida (celda F1).</li>
+                                <li>⛄ ¡Cuidado! Si un muñeco de nieve te toca, la partida termina al instante.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PERSONAJE -->
+    <section id="personaje" class="py-5 bg-white">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">🐧 Conoce a Pingüi</h2>
+                <p class="text-muted mt-3">El pequeño héroe aventurero del Polo Norte en sus dos versiones.</p>
+            </div>
+            
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-5 text-center">
+                    <img src="Personaje.jpg" alt="Pingüi, protagonista" class="character-image">
+                </div>
+                
+                <div class="col-lg-7">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="ice-card p-4">
+                                <h4 class="fw-bold text-info mb-3">🧣 Versión Carrera</h4>
+                                <p class="small text-muted">Equipado para correr a máxima velocidad sobre pistas de hielo.</p>
+                                <ul class="stat-list">
+                                    <li>🎅 <strong>Gorro navideño:</strong> listo para Nochebuena.</li>
+                                    <li>🧣 <strong>Bufanda roja:</strong> protección térmica.</li>
+                                    <li>🧥 <strong>Chaqueta azul:</strong> aerodinámica para correr.</li>
+                                    <li>🏃 <strong>5 piezas articuladas:</strong> cuerpo, aletas y patas independientes.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="ice-card p-4">
+                                <h4 class="fw-bold text-warning mb-3">🐟 Versión Laberinto</h4>
+                                <p class="small text-muted">Textura renovada (2048×2048) y animaciones por estados para explorar.</p>
+                                <ul class="stat-list pacman">
+                                    <li>🧣 <strong>Bufanda verde con amarillo:</strong> nuevo diseño tejido.</li>
+                                    <li>👟 <strong>Pantuflas amarillas:</strong> con carita de pingüino.</li>
+                                    <li>⚡ <strong>Velocidad ágil:</strong> desplazamiento constante a 3 u/s.</li>
+                                    <li>🎬 <strong>4 Animaciones:</strong> Quieto, Correr, Morir y Festejar con confeti.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MECÁNICAS DIVIDIDAS -->
+    <section id="mecanicas" class="py-5 ice-section">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">🎮 Controles y Mecánicas</h2>
+                <p class="text-muted mt-3">Domina las reglas de cada modo de juego antes de empezar.</p>
+            </div>
+            
+            <!-- BLOQUE 1: PINGÜI RUN -->
+            <div class="mb-5 pb-5 border-bottom border-info">
+                <div class="d-flex align-items-center gap-2 mb-4">
+                    <span class="badge bg-info text-dark fs-6 px-3 py-2 rounded-pill">Modo 1</span>
+                    <h3 class="fw-bold mb-0">Pingüi Run (Carrera en el Polo Norte)</h3>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="ice-card"><div class="card-top"></div><div class="p-4">
+                            <h5 class="fw-bold mb-3">⌨️ Controles</h5>
+                            <p class="small text-muted">Pingüi corre automáticamente hacia adelante; tú esquivas a tiempo.</p>
+                            <div class="text-center my-4">
+                                <div><span class="key">⬆️</span> <span class="small ms-2 fw-bold">Saltar obstáculos bajos</span></div>
+                                <div class="mt-2"><span class="key">⬇️</span> <span class="small ms-2 fw-bold">Agacharse en arcos y aves</span></div>
+                            </div>
+                        </div></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="ice-card"><div class="card-top"></div><div class="p-4">
+                            <h5 class="fw-bold mb-3">🏆 Reglas de Carrera</h5>
+                            <ul class="stat-list">
+                                <li>⭐ <strong>+10 puntos</strong> por cada segundo sobrevivido.</li>
+                                <li>❤️ <strong>3 vidas iniciales</strong> para alcanzar los 1000 pts.</li>
+                                <li>⚡ La velocidad sube hasta <strong>30 m/s</strong>.</li>
+                                <li>🛡️ <strong>1,5 s</strong> de invulnerabilidad tras un golpe.</li>
+                            </ul>
+                        </div></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="ice-card"><div class="card-top"></div><div class="p-4">
+                            <h5 class="fw-bold mb-3">🧊 Peligros del Camino</h5>
+                            <ul class="stat-list">
+                                <li>🧊 Bloques de hielo y rocas congeladas.</li>
+                                <li>⛄ Muñecos de nieve y cajas de regalos.</li>
+                                <li>🐦 Charranes árticos volando bajo.</li>
+                                <li>❄️ Arcos de hielo con carámbanos.</li>
+                            </ul>
+                        </div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 2: LABERINTO DEL POLO NORTE (PACMAN) -->
+            <div>
+                <div class="d-flex align-items-center gap-2 mb-4">
+                    <span class="badge bg-warning text-dark fs-6 px-3 py-2 rounded-pill">Modo 2</span>
+                    <h3 class="fw-bold mb-0">Pingüi: Laberinto del Polo Norte (Pingu Pacman)</h3>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="ice-card"><div class="card-top pacman"></div><div class="p-4">
+                            <h5 class="fw-bold mb-3">⌨️ Controles y Atajos</h5>
+                            <div class="text-center mb-3">
+                                <span class="key gold">⬆️</span><span class="key gold">⬇️</span><span class="key gold">⬅️</span><span class="key gold">➡️</span>
+                                <span class="d-block small text-muted mt-1">Mover a Pingüi (3 u/s, 1 dirección a la vez)</span>
+                            </div>
+                            <ul class="stat-list pacman small">
+                                <li><span class="badge bg-dark me-1">R</span> Reiniciar partida en cualquier momento.</li>
+                                <li><span class="badge bg-dark me-1">V</span> Cambiar cámara: inclinada (70°) o cenital (90°).</li>
+                                <li><span class="badge bg-dark me-1">L</span> / <span class="badge bg-dark me-1">N</span> Ver rayos de visión, rutas y NavMesh.</li>
+                                <li><span class="badge bg-dark me-1">M</span> Música sí/no · <span class="badge bg-dark me-1">F1</span> Info técnica · <span class="badge bg-dark me-1">H</span> Ayuda.</li>
+                            </ul>
+                        </div></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="ice-card"><div class="card-top pacman"></div><div class="p-4">
+                            <h5 class="fw-bold mb-3">🏆 Reglas del Laberinto</h5>
+                            <ul class="stat-list pacman">
+                                <li>🐟 <strong>36 peces dorados:</strong> cada uno suma <strong>10 puntos</strong> (360 máx) y desaparece con un destello.</li>
+                                <li>🔒 <strong>Puerta de salida (F1):</strong> permanece cerrada con luces rojas hasta recoger el último pez; luego se hunde con luces verdes.</li>
+                                <li>🎉 <strong>Victoria:</strong> recoge los 36 peces y cruza la puerta abierta.</li>
+                                <li>💀 <strong>Sin vidas:</strong> si un enemigo te toca, pierdes al instante.</li>
+                            </ul>
+                        </div></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="ice-card"><div class="card-top pacman"></div><div class="p-4">
+                            <h5 class="fw-bold mb-3">⛄ Enemigos con IA</h5>
+                            <ul class="stat-list pacman">
+                                <li>🔴 <strong>Muñeco Rojo (E1):</strong> patrulla la ruta E6 → B6 → B2 → E2.</li>
+                                <li>🟣 <strong>Muñeco Morado (E2):</strong> patrulla la ruta G6 → J6 → J2 → G2.</li>
+                                <li>🧭 <strong>Pathfinding (2,5 u/s):</strong> esquivan muros automáticamente con <em>NavMeshAgent</em>.</li>
+                                <li>👁️ <strong>Raycasting (8 u):</strong> lanzan un rayo desde los ojos; si te ven sin paredes en medio, sus ojos brillan y te persiguen a <strong>3,5 u/s</strong>.</li>
+                            </ul>
+                        </div></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ESTADÍSTICAS DE AMBOS JUEGOS -->
+    <section id="datos" class="py-5 bg-white">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">📊 Números del Multiverso Pingüi</h2>
+                <p class="text-muted mt-3">Datos clave de la Carrera y del Laberinto del Polo Norte.</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-6 col-md-3">
+                    <div class="metric-card">
+                        <div class="metric-number">1000</div>
+                        <p class="mb-0 fw-bold">🏆 Meta Runner (pts)</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="metric-card">
+                        <div class="metric-number">30 m/s</div>
+                        <p class="mb-0 fw-bold">⚡ Vel. Máx. Runner</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="metric-card">
+                        <div class="metric-number gold">36</div>
+                        <p class="mb-0 fw-bold">🐟 Peces en Laberinto</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="metric-card">
+                        <div class="metric-number gold">8 u</div>
+                        <p class="mb-0 fw-bold">👁️ Visión Raycast IA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JUGAR (SELECCIÓN DE MODALES) -->
+    <section id="jugar" class="play-section py-5">
+        <div class="container py-5 text-center">
+            <div class="game-badge mb-4">🎄 ¡JUEGA DIRECTAMENTE EN EL NAVEGADOR!</div>
+            <h2 class="display-5 fw-bold mb-2">Elige tu Aventura</h2>
+            <p class="text-light opacity-75 mb-5">Haz clic en cualquiera de los juegos para abrir la consola interactiva sin salir de la página.</p>
+
+            <div class="row justify-content-center g-4">
+                <!-- TARJETA JUEGO 1: PINGÜI RUN -->
+                <div class="col-md-5 game-card-container runner" data-bs-toggle="modal" data-bs-target="#modalPinguiRun">
+                    <div class="play-box h-100 p-5">
+                        <div style="font-size: 4.5rem;">🐧❄️</div>
+                        <span class="badge bg-info text-dark mt-2">Práctica 1 · Endless Runner</span>
+                        <h3 class="fw-bold mt-2 text-white">Pingüi Run</h3>
+                        <p class="text-light opacity-75 mt-3">
+                            El hielo no espera. Salta, agáchate y esquiva obstáculos a toda velocidad para llegar al banquete de la abuela.
+                        </p>
+                        <button class="btn btn-play btn-lg rounded-pill fw-bold px-4 py-3 mt-3 w-100">
+                            ▶ JUGAR PINGÜI RUN
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TARJETA JUEGO 2: LABERINTO DEL POLO NORTE -->
+                <div class="col-md-5 game-card-container maze" data-bs-toggle="modal" data-bs-target="#modalPinguPacman">
+                    <div class="play-box h-100 p-5">
+                        <div style="font-size: 4.5rem;">🐟⛄</div>
+                        <span class="badge bg-warning text-dark mt-2">Práctica 2 · Arcade 3D</span>
+                        <h3 class="fw-bold mt-2 text-warning">Laberinto del Polo Norte</h3>
+                        <p class="text-light opacity-75 mt-3">
+                            Recoge los 36 peces dorados, abre la puerta de hielo en F1 y escapa de los muñecos de nieve con Raycasting.
+                        </p>
+                        <button class="btn btn-gold btn-lg rounded-pill fw-bold px-4 py-3 mt-3 w-100">
+                            ▶ JUGAR LABERINTO
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="small text-light opacity-50 mt-5">Unity 6 WebGL · Ejecución local integrada sin enlaces externos</p>
+        </div>
+    </section>
+
+    <!-- PORTAFOLIO Y FOOTER -->
+    <section class="py-5 ice-section text-center">
+        <div class="container py-4">
+            <div style="font-size: 3rem;">🎮 🎄 🐧</div>
+            <h2 class="fw-bold mt-3">¿Te gustan nuestros juegos?</h2>
+            <p class="text-muted">Descubre más proyectos y videojuegos desarrollados por nuestro equipo.</p>
+            <a href="https://fabriciop21.github.io/Portafolio-Game-Development/" target="_blank" class="btn btn-outline-dark rounded-pill px-4 mt-2">
+                📁 Ver portafolio completo
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-4 text-center">
+        <div class="container">
+            <div style="font-size: 2.2rem;">🐧 ❄️ 🎄</div>
+            <p class="mb-1"><strong>PINGÜI GAMES · Carrera & Laberinto del Polo Norte</strong></p>
+            <p class="small mb-0">Desarrollado por el equipo <strong>Rescate del Pingu</strong>: Fabricio Rene Pinaya Peñaloza & Jhoel Alejandro Mauricio Flores Vargas.</p>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         MODALES DE LOS JUEGOS (CON BOTÓN PANTALLA COMPLETA)
+    ========================================================== -->
+
+    <!-- Modal Juego 1: Pingüi Run -->
+    <div class="modal fade" id="modalPinguiRun" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-game" id="dialogPinguiRun">
+            <div class="modal-content modal-content-game" id="contentPinguiRun" style="border: 2px solid #65dcff;">
+                <div class="modal-header border-0 py-2 px-3 d-flex justify-content-between align-items-center" style="background: #021426;">
+                    <h6 class="modal-title text-info fw-bold mb-0">🐧 Pingüi Run (Controles: ⬆️ ⬇️)</h6>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-sm btn-outline-info fw-bold rounded-pill px-3" onclick="alternarPantallaCompleta('dialogPinguiRun', 'contentPinguiRun', this, 'iframePinguiRun')">
+                            ⛶ Pantalla Completa
+                        </button>
+                        <button type="button" class="btn-close btn-close-white m-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                </div>
+                <div class="modal-body p-0 d-flex flex-column flex-grow-1">
+                    <iframe id="iframePinguiRun" data-src="juegos/pingui-run/index.html" class="modal-game-iframe" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Juego 2: Laberinto del Polo Norte -->
+    <div class="modal fade" id="modalPinguPacman" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-game" id="dialogPinguPacman">
+            <div class="modal-content modal-content-game" id="contentPinguPacman" style="border: 2px solid #ffd447;">
+                <div class="modal-header border-0 py-2 px-3 d-flex justify-content-between align-items-center" style="background: #021426;">
+                    <h6 class="modal-title text-warning fw-bold mb-0">🐟 Laberinto del Polo Norte (Flechas | R: Reiniciar | V: Vista)</h6>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-sm btn-outline-warning fw-bold rounded-pill px-3" onclick="alternarPantallaCompleta('dialogPinguPacman', 'contentPinguPacman', this, 'iframePinguPacman')">
+                            ⛶ Pantalla Completa
+                        </button>
+                        <button type="button" class="btn-close btn-close-white m-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                </div>
+                <div class="modal-body p-0 d-flex flex-column flex-grow-1">
+                    <iframe id="iframePinguPacman" data-src="juegos/pingu-pacman/index.html" class="modal-game-iframe" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        if ("scrollRestoration" in history) { history.scrollRestoration = "manual"; }
+        window.addEventListener("load", function () { setTimeout(function () { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); }, 50); });
+        window.addEventListener("pageshow", function (event) { if (event.persisted) { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); } });
+
+        // Ajusta automáticamente el interior del iframe de Unity para que nunca salga cortado ni con barras
+        function ajustarCanvasUnity(iframeEl) {
+            try {
+                const doc = iframeEl.contentDocument || iframeEl.contentWindow.document;
+                if (!doc) return;
+                const style = doc.createElement('style');
+                style.innerHTML = `
+                    html, body {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        width: 100% !important;
+                        height: 100% !important;
+                        overflow: hidden !important;
+                        background: #000 !important;
+                    }
+                    #unity-container {
+                        position: fixed !important;
+                        inset: 0 !important;
+                        left: 0 !important;
+                        top: 0 !important;
+                        transform: none !important;
+                        width: 100% !important;
+                        height: 100% !important;
+                        display: flex !important;
+                        align-items: center !important;
+                        justify-content: center !important;
+                    }
+                    #unity-canvas {
+                        width: 100% !important;
+                        height: 100% !important;
+                    }
+                    #unity-footer {
+                        display: none !important;
+                    }
+                `;
+                doc.head.appendChild(style);
+            } catch (e) {
+                console.warn("No se pudo inyectar el auto-ajuste:", e);
+            }
+        }
+
+        // Botón interruptor: Activa y desactiva la pantalla completa
+        function alternarPantallaCompleta(idDialog, idContent, btnEl, idIframe) {
+            const dialogEl = document.getElementById(idDialog);
+            const contentEl = document.getElementById(idContent);
+            const iframeEl = document.getElementById(idIframe);
+
+            if (!document.fullscreenElement && !dialogEl.classList.contains('pantalla-completa')) {
+                dialogEl.classList.add('pantalla-completa');
+                btnEl.innerHTML = '🗗 Tamaño Normal';
+                if (contentEl.requestFullscreen) {
+                    contentEl.requestFullscreen().catch(() => {});
+                }
+            } else {
+                dialogEl.classList.remove('pantalla-completa');
+                btnEl.innerHTML = '⛶ Pantalla Completa';
+                if (document.fullscreenElement && document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                }
+            }
+            setTimeout(() => iframeEl.focus(), 100);
+        }
+
+        // Sincroniza el texto del botón si el usuario sale con la tecla ESC
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                document.querySelectorAll('.modal-dialog-game').forEach(d => d.classList.remove('pantalla-completa'));
+                document.querySelectorAll('[onclick^="alternarPantallaCompleta"]').forEach(b => b.innerHTML = '⛶ Pantalla Completa');
+            }
+        });
+
+        function configurarModalJuego(idModal, idIframe, idDialog) {
+            const modalEl = document.getElementById(idModal);
+            const iframeEl = document.getElementById(idIframe);
+            const dialogEl = document.getElementById(idDialog);
+
+            iframeEl.addEventListener('load', function () {
+                if (iframeEl.src && iframeEl.src !== window.location.href) {
+                    ajustarCanvasUnity(iframeEl);
+                    iframeEl.focus();
+                }
+            });
+            
+            modalEl.addEventListener('shown.bs.modal', function () {
+                iframeEl.src = iframeEl.getAttribute('data-src');
+                iframeEl.focus();
+            });
+            
+            modalEl.addEventListener('hidden.bs.modal', function () {
+                iframeEl.src = "";
+                dialogEl.classList.remove('pantalla-completa');
+                if (document.fullscreenElement && document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                }
+            });
+        }
+
+        configurarModalJuego('modalPinguiRun', 'iframePinguiRun', 'dialogPinguiRun');
+        configurarModalJuego('modalPinguPacman', 'iframePinguPacman', 'dialogPinguPacman');
+    </script>
+</body>
+</html>
